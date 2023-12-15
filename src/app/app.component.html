@@ -1,0 +1,192 @@
+<!-- <input (appHttpBook)="bookList=$event" type="text">
+{{bookList | json}}  --><!-- แปลงการแสดงผลเป็นรูปแบบของ json ด้วย | json -->
+<!-- <br>
+ 
+     FormModule ngModel
+<div>
+    <input type="text" [(ngModel)]="employeeCode" required
+    #employeeCodeNgModel="ngModel"
+    pInputText placeholder="รหัส" />
+       
+    <p-message *ngIf="employeeCodeNgModel.invalid" severity="error" text="Field is required"></p-message> ถ้าเป็น true คือไม่ทำตามข้อกำหนด ถ้า false คือทำตามข้อกำหนด -->
+<!-- </div> -->
+<!-- <br>
+<div>
+    <input type="text" [(ngModel)]="employeeName" pInputText placeholder="ชื่อ" />
+</div>
+<br>
+<div>
+    <p-button  label="Submit"></p-button>
+</div> -->
+
+<!--ReactiveFormModule FormControl -->
+
+<div class="grid">
+    <div class="col-12 md:col-6 lg:col-3">
+      <input  type="text" [formControl]="weightForm" pInputText class="w-full" placeholder="weight kg"/>
+      <p-message *ngIf="weightForm.invalid&&weightForm.touched" severity="error" text="กรุณากรอกน้ำหนัก"></p-message><!-- .touched คือ สถานะที่บอกว่าจะต้องแตะ component ก่อนนะถึงจะแสดงข้อความนี้-->
+    </div>
+    <br>
+    <div class="col-12 md:col-6 lg:col-3">
+      <input type="text" [formControl]="heightForm"  pInputText class="w-full" placeholder="height m"/>
+      <p-message *ngIf="heightForm.invalid&& heightForm.touched" severity="error" text="Fกรุณากรอกส่วนสูง"></p-message>
+    </div>
+   <br>
+    <div class="col-12 md:col-6 lg:col-6">
+      <p-button [disabled]="heightForm.invalid&&weightForm.invalid" label="Calculate BMI" (onClick)="calculate()"></p-button>
+    </div>
+  </div>
+  <br>
+  <div class="grid">
+    <div class="col-12">BMI: {{ bmi }}</div>
+  </div>
+  <br>
+  <div class="grid">
+    <div class="col-12">INFO: {{ info }}</div>
+  </div>
+
+<br>
+<br>
+<br>
+  <!-- email-->
+  <div class="grid">
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="p-field p-fluid">
+        <label for="email">Email</label>
+        <input
+          type="text"
+          [formControl]="emailForm"
+          pInputText
+          class="w-full"
+          placeholder="email@org.xx"
+        />
+        <small
+          id="email-help"
+          class="p-error"
+          *ngIf="emailForm.hasError('required')&&emailForm.invalid && emailForm.touched"  >Email is not available.</small>  <!-- สามารถเช็คด้วย formControls ได้ว่าในขณะนั้นใน formControls กำลังมี error propety ที่เราต้องการอยู่หรือไม่ โดยการนำ object formControls มาเรียก method .hasError และกำหนด property ที่จะให้มันเช็ค ว่าตอนนี้มัน error property นี้อยู่หรือไม่ เช่น .hasError('required')-->
+
+          <small
+          id="email-help"
+          class="p-error"
+          *ngIf="emailForm.hasError('email')&&emailForm.invalid && emailForm.touched"
+          >wtf email</small>
+      </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <p-button [disabled]="emailForm.invalid" label="submit"></p-button>
+    </div>
+
+
+  {{emailForm.errors | json}} <!-- จาก object formControl เราสามารถดูได้ว่าตอนนี้มันผิดข้อกำหนดอะไรอยู่ ด้วย property errors และทำให้มันอ่านง่่ายๆด้วยการแปลงเป็นรูปแบบ json  (เป็น true เท่ากับผิดข้อกำหนด ถ้าทำถูกหมดจะเป็น null)-->
+
+
+  <br> <br> <br> <br> <br>
+
+  <!-- id card validation-->
+  <div>
+    <div>ID Card:</div>
+    <input type="text" [formControl]="idCard" />
+  </div>
+  <span
+    class="error-message"
+   
+    *ngIf="idCard.invalid && idCard.errors?.['required'] && idCard.touched"
+  >
+    This field is required
+  </span>
+
+  <span
+    class="error-message"
+   
+    *ngIf="idCard.invalid && idCard.errors?.['minlength'] && idCard.touched"
+  >
+    กรอกให้ครบ 5
+  </span>
+
+  <span
+  class="error-message"
+ 
+  *ngIf="idCard.invalid && idCard.errors?.['idCard'] && idCard.touched"
+>
+  เลขบัตรผิด
+</span>
+
+  <br>
+
+  <div class="container">
+    <header>
+      
+      <ul class="flex-con">
+     <li><a href="">Home</a></li>
+     <li><a href="">Student</a></li>
+     <li><a href="">add student</a></li>
+    </ul>
+ 
+  </header>
+    <main>main</main>
+  </div>
+
+  <div class="layout-config " [class.figcon]="active" > <!-- class Binding-->
+    <div class="layout-config-content-wrapper">
+      <a (click)="active=!active" tabindex="0" class="layout-config-button"
+        ><i class="pi pi-cog"></i
+      ></a> 
+      <a (click)="active=!active"  class="layout-config-close"
+        ><i class="pi pi-times"></i
+      ></a>
+      <div class="layout-config-content">
+        <div>
+          <img
+            src="https://yt3.ggpht.com/yti/APfAmoGx11VyrbEY5_qC51mWS9gaJxgkfMgXq3W7O00S=s108-c-k-c0x00ffffff-no-rj"
+            alt="BoppinCode"
+          />
+          <h2>Hello BoppinCode</h2>
+          <div>
+            <input type="text" pInputText />
+            <p-button label="Cheer"></p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <br><br>
+
+<!-- Pipe -->
+  <p-table [value]="pokemonChooseList">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>id</th>
+        <th>pokename</th>
+        <th>choose</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pokemon let-rowIndex="rowIndex">
+      <tr>
+        <td>{{ pokemon.id }}</td>
+        <td>{{ pokemon.pokename }}</td>
+        <td>{{ pokemon.choose | choose}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  
+
+
+  <br><br><br><br>
+
+  <!-- View Child -->
+
+  <div>
+    <p-checkbox [(ngModel)]="isShowImage" [binary]="true" inputId="binary"></p-checkbox>
+    <label for="">show </label>&nbsp;&nbsp;&nbsp;
+    <button (click)="smallImage()">small</button>
+    <button (click)="mediumImage()">medium</button>
+    <button (click)="bigImage()">big</button>
+  </div>
+
+  <img *ngIf="isShowImage" class="ani-img" #boppinCodeImage src="https://yt3.ggpht.com/ytc/AKedOLSwF25Vcx5D_EIvdwVdrgNQFUzo6-nwc94Ies6R=s176-c-k-c0x00ffffff-no-rj-mo" 
+  alt="boppin' code" style="width: 175px;">
+
+  
