@@ -1,0 +1,30 @@
+<!-- <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+   
+      <div class="example-box" *ngFor="let movie of movies; track movie" cdkDrag>{{movie}}</div> -->
+
+
+      <ng-container cdkDropListGroup > <!-- cdkDropListGroup สร้างกลุ่ม droplist ให้อยู่กลุ่มเดียวกัน-->
+       todo
+      <div class="example-list" cdkDropList [cdkDropListData]="duty" 
+      (cdkDropListDropped)="dropDuty($event)"> <!-- กำหนดให้ div ตัวนี้เป็นพื้นที่ของการ drop ด้วยการแปะ cdkDropList-->
+                                              <!-- cdkDropListDropped เป็น output ที่ทำงานตอน drop จากตัวอย่างกำหนดว่าถ้า drop เมื่อไหร่ให้เรียก method dropDuty($event)-->
+
+  <div class="example-box" *ngFor="let duty of duty" cdkDrag>
+    {{duty}}
+  </div>
+
+</div>
+
+<br><br>
+
+done
+<div class="example-list" cdkDropList [cdkDropListData]="done" cdkDropList (cdkDropListDropped)="dropDuty($event)"> <!-- [cdkDropListData] คือการกำหนดว่า droplist นี้ เป็นข้อมูลจาก array ไหน เช่น array  done -->
+   
+
+<div class="example-box" *ngFor="let duty of done" cdkDrag>
+{{duty}}
+</div>
+
+</div>
+
+</ng-container>
